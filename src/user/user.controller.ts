@@ -10,10 +10,13 @@ import {
   Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { QueryDto } from './user.query.dto';
-import { UpdateDto } from './user.update.dto';
+import { QueryDto } from './dtos/user.query.dto';
+import { UpdateDto } from './dtos/user.update.dto';
+import { Serialize } from 'src/interceptors/serialize.interceptors';
+import { UserDto } from './dtos/user.dto';
 
 @Controller('users')
+@Serialize(UserDto)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
