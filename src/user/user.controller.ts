@@ -8,6 +8,7 @@ import {
   ParseIntPipe,
   Patch,
   Query,
+  Session,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { QueryDto } from './dtos/user.query.dto';
@@ -21,9 +22,13 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  getUsers(@Query() query: QueryDto) {
+  getUsers(@Query() query: QueryDto, @Session() session: any) {
+    console.log(session);
     return this.userService.getAll(query);
   }
+
+  @Get('/me')
+  getCurrentUser(@Session() session: any) {}
 
   @Get('/:id')
   async getUser(@Param('id', ParseIntPipe) id: number) {
