@@ -10,6 +10,7 @@ import { Report } from './report/report.entity';
 import { ConfigModule } from '@nestjs/config';
 import * as morgan from 'morgan';
 import * as Joi from 'joi';
+import { AuthModule } from './auth/auth.module';
 const cookieSession = require('cookie-session');
 
 @Module({
@@ -27,6 +28,7 @@ const cookieSession = require('cookie-session');
       synchronize: true,
       entities: [User, Report],
     }),
+    AuthModule,
     UserModule,
     ReportModule,
   ],
@@ -43,7 +45,7 @@ export class AppModule {
           keys: [process.env.session_secret],
           secure: process.env.NODE_ENV === 'production',
         }),
-        morgan('tiny'),
+        process.env.NODE_ENV === 'development' && morgan('tiny'),
       )
       .forRoutes('*');
   }

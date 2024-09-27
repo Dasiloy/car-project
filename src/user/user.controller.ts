@@ -13,7 +13,9 @@ import {
 import { UserService } from './user.service';
 import { QueryDto } from './dtos/user.query.dto';
 import { UpdateDto } from './dtos/user.update.dto';
-import { Serialize } from 'src/interceptors/serialize.interceptors';
+import { User } from './decorators/user.decorator';
+import { IUser } from './user.interfcae';
+import { Serialize } from 'src/interceptors/serialize.intercepyor';
 import { UserDto } from './dtos/user.dto';
 
 @Controller('users')
@@ -28,7 +30,9 @@ export class UserController {
   }
 
   @Get('/me')
-  getCurrentUser(@Session() session: any) {}
+  getCurrentUser(@User() user: IUser) {
+    return user;
+  }
 
   @Get('/:id')
   async getUser(@Param('id', ParseIntPipe) id: number) {

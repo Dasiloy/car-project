@@ -1,6 +1,9 @@
 ### Get all Users
 GET http://localhost:4000/users
 
+### Get CurrentUser
+GET http://localhost:4000/users/me
+
 ### Get One User
 GET http://localhost:4000/users/1
 

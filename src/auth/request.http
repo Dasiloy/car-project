@@ -4,8 +4,8 @@ POST http://localhost:4000/auth/signup
 Content-Type: application/json
 
 {
-    "email":"oyewole@email.com",
-    "password":"dasiloy"
+    "email":"mustapha@email.com",
+    "password":"mustapha"
 }
 
 ### Login
@@ -16,3 +16,7 @@ Content-Type: application/json
     "email":"oyewole@email.com",
     "password":"dasiloy"
 }
+
+### Logout
+POST http://localhost:4000/auth/logout
+Content-Type: application/json
