@@ -1,3 +1,26 @@
+
+### Signup
+POST http://localhost:4000/auth/signup
+Content-Type: application/json
+
+{
+    "email":"ay@email.com",
+    "password":"ay"
+}
+
+### Login
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+    "email":"oyewole@email.com",
+    "password":"dasiloy"
+}
+
+### Logout
+POST http://localhost:4000/auth/logout
+Content-Type: application/json
+
 ### Get all Users
 GET http://localhost:4000/users
 
@@ -5,10 +28,10 @@ GET http://localhost:4000/users
 GET http://localhost:4000/users/me
 
 ### Get One User
-GET http://localhost:4000/users/1
+GET http://localhost:4000/users/3
 
 ### Update user
-PATCH http://localhost:4000/users/1
+PATCH http://localhost:4000/users/3
 Content-Type: application/json
 
 {
@@ -16,4 +39,4 @@ Content-Type: application/json
 }
 
 ### Get One User
-DELETE http://localhost:4000/users/1
+DELETE http://localhost:4000/users/3

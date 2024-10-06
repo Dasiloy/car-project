@@ -10,7 +10,4 @@ export class User {
 
   @Column()
   password: string;
-
-  // @BeforeInsert()
-  // hasHPassword() {}
 }
