@@ -3,17 +3,21 @@ import { UserService } from './user.service';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dtos/auth.dto';
 import { BadRequestException } from '@nestjs/common';
+import { User } from './user.entity';
 
 // test block
 describe('AuthService', () => {
   let authService: AuthService;
+  const users: User[] = [];
   const userService: Partial<UserService> = {
     findByEmail(email: string) {
-      console.log(email);
-      return Promise.resolve(null);
+      const user = users.find((u) => u.email === email);
+      return Promise.resolve(user);
     },
     create(data: AuthDto) {
-      return Promise.resolve({ ...data, id: 1 });
+      const user = { id: Math.floor(Math.random() * users.length), ...data };
+      users.push(user);
+      return Promise.resolve(user);
     },
   };
 
@@ -46,10 +50,43 @@ describe('AuthService', () => {
   });
 
   it('throws an error when user signs up with existing email', async () => {
-    userService.findByEmail = () =>
-      Promise.resolve({ id: 2, email: '', password: '' });
+    await authService.signup({
+      email: 'test@email.com',
+      password: 'testpassword',
+    });
     await expect(
-      authService.signup({ email: 'john', password: 'duran' }),
+      authService.signup({
+        email: 'test@email.com',
+        password: 'testpassword',
+      }),
     ).rejects.toThrow(BadRequestException);
+  });
+
+  it('throws an error if user logs in with email that does not exist', async () => {
+    await expect(
+      authService.login({ email: 'test@test.com', password: '' }),
+    ).rejects.toThrow(BadRequestException);
+  });
+
+  it('throws an error if user password is invalid', async () => {
+    await authService.signup({
+      email: 'test2@email.com',
+      password: 'testpassword',
+    });
+    await expect(
+      authService.login({ email: 'test2email.com', password: 'testpasswor' }),
+    ).rejects.toThrow(BadRequestException);
+  });
+
+  it('logs in with correct password', async () => {
+    await authService.signup({
+      email: 'test3@email.com',
+      password: 'testpassword',
+    });
+    const user = await authService.login({
+      email: 'test3@email.com',
+      password: 'testpassword',
+    });
+    expect(user).toBeDefined();
   });
 });
