@@ -9,9 +9,9 @@ import {
 } from '@nestjs/common';
 import { AuthDto } from './dtos/auth.dto';
 import { AuthService } from './auth.service';
-import { Serialize } from 'src/interceptors/serialize.intercepyor';
-import { UserDto } from 'src/user/dtos/user.dto';
-import { Public } from 'src/metadata/route.metadata';
+import { Serialize } from '../interceptors/serialize.intercepyor';
+import { UserDto } from '../user/dtos/user.dto';
+import { Public } from '../metadata/route.metadata';
 
 @Controller('auth')
 @Serialize(UserDto)

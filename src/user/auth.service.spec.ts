@@ -7,21 +7,23 @@ import { User } from './user.entity';
 
 // test block
 describe('AuthService', () => {
+  let users: User[];
   let authService: AuthService;
-  const users: User[] = [];
-  const userService: Partial<UserService> = {
-    findByEmail(email: string) {
-      const user = users.find((u) => u.email === email);
-      return Promise.resolve(user);
-    },
-    create(data: AuthDto) {
-      const user = { id: Math.floor(Math.random() * users.length), ...data };
-      users.push(user);
-      return Promise.resolve(user);
-    },
-  };
+  let userService: Partial<UserService>;
 
   beforeEach(async () => {
+    users = [];
+    userService = {
+      findByEmail(email: string) {
+        const user = users.find((u) => u.email === email);
+        return Promise.resolve(user);
+      },
+      create(data: AuthDto) {
+        const user = { id: Math.floor(Math.random() * users.length), ...data };
+        users.push(user);
+        return Promise.resolve(user);
+      },
+    };
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
