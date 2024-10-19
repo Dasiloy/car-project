@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
-import { IS_PUBLIC } from 'src/metadata/route.metadata';
+import { IS_PUBLIC } from '../metadata/route.metadata';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

@@ -1,11 +1,22 @@
-import { Controller, Get } from '@nestjs/common';
-import { User } from 'src/user/decorators/user.decorator';
-import { User as UserEntity } from 'src/user/user.entity';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { CurrentUser } from '../user/decorators/user.decorator';
+import { User } from '../user/user.entity';
+import { CreateReportDto } from './dtos/create_report';
+import { ReportService } from './report.service';
+import { Serialize } from '../interceptors/serialize.intercepyor';
+import { CreatedReportDto } from './dtos/created_report.dto';
 
 @Controller('reports')
 export class ReportController {
+  constructor(private readonly reportService: ReportService) {}
+  @Post()
+  @Serialize(CreatedReportDto)
+  CreateReport(@Body() body: CreateReportDto, @CurrentUser() user: User) {
+    return this.reportService.create(body, user);
+  }
+
   @Get('')
-  getReports(@User() user: UserEntity) {
+  getReports(@CurrentUser() user: User) {
     return user;
   }
 }

@@ -5,8 +5,8 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { UserInterceptor } from './interceptors/user.interceptor';
-import { AuthService } from 'src/user/auth.service';
-import { AuthGuard } from 'src/user/auth.guard';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
 import { AuthController } from './auth.controller';
 
 @Module({
@@ -21,7 +21,7 @@ import { AuthController } from './auth.controller';
     },
     {
       provide: APP_GUARD,
-      useClass: AuthGuard,
+      useClass: AuthGuard, // attach global auth guard
     },
   ],
   exports: [UserService],

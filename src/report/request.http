@@ -1,2 +1,16 @@
 ### Get Reports 
 GET http://localhost:4000/reports
+
+### Create Report
+POST  http://localhost:4000/reports
+Content-Type: application/json
+
+{
+    "make":"hiunda",
+    "model":"classic",
+    "year":1990,
+    "lng":0.20,
+    "lat":0,
+    "mileage":200,
+    "price":45000
+}

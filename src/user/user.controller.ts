@@ -13,7 +13,7 @@ import {
 import { UserService } from './user.service';
 import { QueryDto } from './dtos/user.query.dto';
 import { UpdateDto } from './dtos/user.update.dto';
-import { User } from './decorators/user.decorator';
+import { CurrentUser } from './decorators/user.decorator';
 import { User as UserEntity } from './user.entity';
 import { Serialize } from '../interceptors/serialize.intercepyor';
 import { UserDto } from './dtos/user.dto';
@@ -30,7 +30,7 @@ export class UserController {
   }
 
   @Get('/me')
-  getCurrentUser(@User() user: UserEntity) {
+  getCurrentUser(@CurrentUser() user: UserEntity) {
     return user;
   }
 
