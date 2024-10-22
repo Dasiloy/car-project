@@ -1,5 +1,5 @@
 ### Get Reports 
-GET http://localhost:4000/reports
+GET http://localhost:4000/reports?make=toyota&model=camry&year=1980&lng=0&lat=0&mileage=20000
 
 ### Create Report
 POST  http://localhost:4000/reports
@@ -13,4 +13,12 @@ Content-Type: application/json
     "lat":0,
     "mileage":200,
     "price":45000
+}
+
+### Approve Report
+PATCH  http://localhost:4000/reports/1
+Content-Type: application/json
+
+{
+"approved":true
 }

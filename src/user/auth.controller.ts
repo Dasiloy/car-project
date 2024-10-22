@@ -23,6 +23,7 @@ export class AuthController {
   async signup(@Body() body: AuthDto, @Session() session: any) {
     const user = await this.authService.signup(body);
     session.user_id = user.id;
+    session.admin = true;
     return user;
   }
 
@@ -35,6 +36,7 @@ export class AuthController {
       throw new UnauthorizedException('Unauthorized');
     }
     session.user_id = user.id;
+    session.admin = true;
     return user;
   }
 
@@ -42,5 +44,6 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   logout(@Session() session: any) {
     session.user_id = null;
+    session.admin = null;
   }
 }
