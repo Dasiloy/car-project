@@ -16,7 +16,7 @@ import { ReportService } from './report.service';
 import { Serialize } from '../interceptors/serialize.intercepyor';
 import { CreatedReportDto } from './dtos/created_report.dto';
 import { ApproveReportDto } from './dtos/approve_report.dto';
-import { AdminGuard } from 'src/guards/admin.guard';
+import { AdminGuard } from '../guards/admin.guard';
 import { QueryReportDto } from './dtos/query._report.dto';
 
 @Controller('reports')

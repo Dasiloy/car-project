@@ -5,8 +5,6 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ReportModule } from './report/report.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user/user.entity';
-import { Report } from './report/report.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as morgan from 'morgan';
 import * as Joi from 'joi';
@@ -19,18 +17,11 @@ const cookieSession = require('cookie-session');
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
       validationSchema: Joi.object({
-        DB_NAME: Joi.string().required(),
         SESSION_SECRET: Joi.string().required(),
       }),
     }),
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'sqlite',
-        database: configService.get<string>('DB_NAME'),
-        synchronize: true,
-        entities: [User, Report],
-      }),
+    TypeOrmModule.forRoot({
+      ...require('../ormconfig'),
     }),
     UserModule,
     ReportModule,
